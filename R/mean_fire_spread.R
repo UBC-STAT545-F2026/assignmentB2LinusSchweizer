@@ -1,52 +1,38 @@
-#' Calculate Mean Fire Spread Rate
+#' Calculate the Mean Fire Spread Rate for a Fuel Type
 #'
 #' @description
-#' Calculates the mean fire spread rate for a specified fuel type
-#' in a wildfire dataset.
+#' This function calculates the mean fire spread rate for an inputted
+#' fuel type in a dataset containing wildfire observations.
 #'
-#' @param dataset A data frame containing wildfire observations.
-#' Must include the columns `fuel_type` and `fire_spread_rate`.
-#' @param fuel A character string specifying the fuel type
-#' for which the mean fire spread rate should be calculated.
+#' @param dataset The dataset containing fuel_type and fire_spread_rate.
+#' Named dataset since it could technically be used with several
+#' datasets, not just wildfires.
 #'
-#' @return A data frame containing one column,
-#' `mean_spread_rate`, with the mean fire spread rate
-#' for the selected fuel type.
+#' @param fuel The fuel type for which the mean fire spread rate
+#' will be calculated.
+#'
+#' @return A tibble containing the mean fire spread rate for the
+#' inputted fuel type.
 #'
 #' @examples
 #' example_data <- data.frame(
-#'   fuel_type = c("C1", "C1", "C2", "C2"),
-#'   fire_spread_rate = c(1.2, 1.8, 2.0, 2.4)
+#'   fuel_type = c("C1", "C1", "C2"),
+#'   fire_spread_rate = c(1.2, 1.8, 2.0)
 #' )
-#'
 #' mean_fire_spread(example_data, "C1")
 #'
 #' @export
+mean_fire_spread = function(dataset,fuel) {
 
-mean_fire_spread <- function(dataset, fuel) {
-
-  if (!is.data.frame(dataset)) {
-    stop("dataset must be a data frame")
+  if(!is.data.frame(dataset)) {
+    stop("Dataset is not a date frame")
   }
 
-  if (!is.character(fuel) || length(fuel) != 1 || is.na(fuel)) {
-    stop("fuel must be a single character string")
+  if(!is.character(fuel)){
+    stop("Fuel is not a character string")
   }
 
-  if (!all(c("fuel_type", "fire_spread_rate") %in% names(dataset))) {
-    stop("dataset must contain fuel_type and fire_spread_rate")
-  }
-
-  if (!is.numeric(dataset$fire_spread_rate)) {
-    stop("fire_spread_rate must be numeric")
-  }
-
-  selected_data <- dataset[dataset$fuel_type %in% fuel, ]
-
-  mean_spread <- mean(
-    selected_data$fire_spread_rate,
-    na.rm = TRUE
-  )
-
-  data.frame(mean_spread_rate = mean_spread)
+  dataset |>
+    dplyr::filter(fuel_type == fuel) |>
+    dplyr::summarise(mean_spread_rate = mean(fire_spread_rate, na.rm = TRUE))
 }

@@ -2,32 +2,31 @@
 % Please edit documentation in R/mean_fire_spread.R
 \name{mean_fire_spread}
 \alias{mean_fire_spread}
-\title{Calculate Mean Fire Spread Rate}
+\title{Calculate the Mean Fire Spread Rate for a Fuel Type}
 \usage{
 mean_fire_spread(dataset, fuel)
 }
 \arguments{
-\item{dataset}{A data frame containing wildfire observations.
-Must include the columns \code{fuel_type} and \code{fire_spread_rate}.}
+\item{dataset}{The dataset containing fuel_type and fire_spread_rate.
+Named dataset since it could technically be used with several
+datasets, not just wildfires.}
 
-\item{fuel}{A character string specifying the fuel type
-for which the mean fire spread rate should be calculated.}
+\item{fuel}{The fuel type for which the mean fire spread rate
+will be calculated.}
 }
 \value{
-A data frame containing one column,
-\code{mean_spread_rate}, with the mean fire spread rate
-for the selected fuel type.
+A tibble containing the mean fire spread rate for the
+inputted fuel type.
 }
 \description{
-Calculates the mean fire spread rate for a specified fuel type
-in a wildfire dataset.
+This function calculates the mean fire spread rate for an inputted
+fuel type in a dataset containing wildfire observations.
 }
 \examples{
 example_data <- data.frame(
-  fuel_type = c("C1", "C1", "C2", "C2"),
-  fire_spread_rate = c(1.2, 1.8, 2.0, 2.4)
+  fuel_type = c("C1", "C1", "C2"),
+  fire_spread_rate = c(1.2, 1.8, 2.0)
 )
-
 mean_fire_spread(example_data, "C1")
 
 }

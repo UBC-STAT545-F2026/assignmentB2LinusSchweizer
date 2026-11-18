@@ -1,11 +1,15 @@
 Package: assignmentB2LinusSchweizer
-Title: What the Package Does (One Line, Title Case)
+Title: Fire Spread Rate for a Given Fuel Type
 Version: 0.0.0.9000
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Description: The goal of assignmentB2LinusSchweizer is to calculate the mean fire spead rate for a given fuel type using the function, mean_fire_spread(). 
+License: MIT + file LICENSE
 Config/roxygen2/version: 8.1.1
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+Imports: 
+    dplyr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
